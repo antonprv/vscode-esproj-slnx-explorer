@@ -10,5 +10,17 @@
   "command.buildProject.title": "Build",
   "command.cleanProject.title": "Clean",
   "command.buildSolution.title": "SLNX: Build Solution",
-  "command.cleanSolution.title": "SLNX: Clean Solution"
+  "command.cleanSolution.title": "SLNX: Clean Solution",
+  "command.runNpmScript.title": "SLNX: Run npm Script...",
+  "submenu.more.label": "More",
+  "command.copyPath.title": "Copy Path",
+  "command.copyRelativePath.title": "Copy Relative Path",
+  "command.openInTerminal.title": "Open in Integrated Terminal",
+  "command.newFile.title": "New File...",
+  "command.newFolder.title": "New Folder...",
+  "command.cutItem.title": "Cut",
+  "command.copyItem.title": "Copy",
+  "command.pasteItem.title": "Paste",
+  "command.rename.title": "Rename...",
+  "command.delete.title": "Delete"
 }

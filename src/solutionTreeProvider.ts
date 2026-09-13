@@ -9,7 +9,7 @@ import { SolutionNode, parseSlnx, flattenProjectNodes, KNOWN_PROJECT_EXTENSIONS 
  * Элемент дерева — либо узел solution (папка/проект из .slnx),
  * либо обычный файл/директория на диске внутри папки проекта.
  */
-type TreeEntry =
+export type TreeEntry =
     | { source: "solution"; node: SolutionNode }
     | { source: "filesystem"; absolutePath: string; isDirectory: boolean };
 
@@ -168,7 +168,11 @@ export class SlnxTreeProvider implements vscode.TreeDataProvider<TreeEntry> {
 
         const item = new vscode.TreeItem(name, vscode.TreeItemCollapsibleState.None);
         item.resourceUri = vscode.Uri.file(absolutePath);
-        item.contextValue = "slnxFile";
+        const fileContextFlags: string[] = ["slnxFile"];
+        if (name === "package.json") {
+            fileContextFlags.push("npmScripts");
+        }
+        item.contextValue = fileContextFlags.join(" ");
         item.iconPath = vscode.ThemeIcon.File;
         item.command = {
             command: "slnxExplorer.openFile",

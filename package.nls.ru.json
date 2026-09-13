@@ -10,5 +10,17 @@
   "command.buildProject.title": "Собрать",
   "command.cleanProject.title": "Очистить",
   "command.buildSolution.title": "SLNX: Собрать Solution",
-  "command.cleanSolution.title": "SLNX: Очистить Solution"
+  "command.cleanSolution.title": "SLNX: Очистить Solution",
+  "command.runNpmScript.title": "SLNX: Запустить npm-скрипт...",
+  "submenu.more.label": "Ещё",
+  "command.copyPath.title": "Копировать путь",
+  "command.copyRelativePath.title": "Копировать относительный путь",
+  "command.openInTerminal.title": "Открыть в интегрированном терминале",
+  "command.newFile.title": "Новый файл...",
+  "command.newFolder.title": "Новая папка...",
+  "command.cutItem.title": "Вырезать",
+  "command.copyItem.title": "Копировать",
+  "command.pasteItem.title": "Вставить",
+  "command.rename.title": "Переименовать...",
+  "command.delete.title": "Удалить"
 }

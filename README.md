@@ -178,6 +178,25 @@ The view's title bar also has **Build Solution** / **Clean Solution**
 buttons that run the command for every project in the solution that
 declares one, skipping the rest.
 
+### npm scripts
+
+Right-clicking a `package.json` file in the tree shows **Run npm
+Script...**, which lists every entry from its `scripts` section and
+runs the chosen one in an integrated terminal (cwd'd to that
+`package.json`'s folder). The package manager is auto-detected from a
+lockfile in that folder — `pnpm-lock.yaml` → pnpm, `yarn.lock` → yarn,
+otherwise npm.
+
+### "More" — standard file operations
+
+Every file, folder, and project entry also gets a **More** submenu
+with the everyday file-explorer actions VS Code doesn't otherwise
+expose for custom tree views: Copy Path, Copy Relative Path, Open in
+Integrated Terminal, New File/Folder (on folders), Cut/Copy/Paste,
+Rename, and Delete (moves to the OS trash). These operate directly on
+disk via the VS Code filesystem API, independent of the built-in
+Explorer.
+
 ## Possible future improvements
 
 - File-type-specific icons in the tree (currently uses generic

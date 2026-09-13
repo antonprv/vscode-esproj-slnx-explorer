@@ -38,6 +38,12 @@
         "contents": "%viewsWelcome.noSolution%"
       }
     ],
+    "submenus": [
+      {
+        "id": "slnxExplorer.moreSubmenu",
+        "label": "%submenu.more.label%"
+      }
+    ],
     "commands": [
       {
         "command": "slnxExplorer.refresh",
@@ -73,6 +79,50 @@
         "command": "slnxExplorer.cleanSolution",
         "title": "%command.cleanSolution.title%",
         "icon": "$(clear-all)"
+      },
+      {
+        "command": "slnxExplorer.runNpmScript",
+        "title": "%command.runNpmScript.title%"
+      },
+      {
+        "command": "slnxExplorer.copyPath",
+        "title": "%command.copyPath.title%"
+      },
+      {
+        "command": "slnxExplorer.copyRelativePath",
+        "title": "%command.copyRelativePath.title%"
+      },
+      {
+        "command": "slnxExplorer.openInTerminal",
+        "title": "%command.openInTerminal.title%"
+      },
+      {
+        "command": "slnxExplorer.newFile",
+        "title": "%command.newFile.title%"
+      },
+      {
+        "command": "slnxExplorer.newFolder",
+        "title": "%command.newFolder.title%"
+      },
+      {
+        "command": "slnxExplorer.cutItem",
+        "title": "%command.cutItem.title%"
+      },
+      {
+        "command": "slnxExplorer.copyItem",
+        "title": "%command.copyItem.title%"
+      },
+      {
+        "command": "slnxExplorer.pasteItem",
+        "title": "%command.pasteItem.title%"
+      },
+      {
+        "command": "slnxExplorer.rename",
+        "title": "%command.rename.title%"
+      },
+      {
+        "command": "slnxExplorer.delete",
+        "title": "%command.delete.title%"
       }
     ],
     "menus": {
@@ -113,6 +163,68 @@
           "command": "slnxExplorer.cleanProject",
           "when": "view == slnxExplorer && viewItem =~ /\\bcleanable\\b/",
           "group": "2_build@2"
+        },
+        {
+          "command": "slnxExplorer.runNpmScript",
+          "when": "view == slnxExplorer && viewItem =~ /\\bnpmScripts\\b/",
+          "group": "2_build@3"
+        },
+        {
+          "submenu": "slnxExplorer.moreSubmenu",
+          "when": "view == slnxExplorer && viewItem =~ /\\b(slnxFile|slnxDirectory|slnxProject)\\b/",
+          "group": "9_more"
+        }
+      ],
+      "slnxExplorer.moreSubmenu": [
+        {
+          "command": "slnxExplorer.copyPath",
+          "when": "view == slnxExplorer",
+          "group": "1_copy@1"
+        },
+        {
+          "command": "slnxExplorer.copyRelativePath",
+          "when": "view == slnxExplorer",
+          "group": "1_copy@2"
+        },
+        {
+          "command": "slnxExplorer.openInTerminal",
+          "when": "view == slnxExplorer",
+          "group": "1_copy@3"
+        },
+        {
+          "command": "slnxExplorer.newFile",
+          "when": "view == slnxExplorer && viewItem == 'slnxDirectory'",
+          "group": "2_new@1"
+        },
+        {
+          "command": "slnxExplorer.newFolder",
+          "when": "view == slnxExplorer && viewItem == 'slnxDirectory'",
+          "group": "2_new@2"
+        },
+        {
+          "command": "slnxExplorer.cutItem",
+          "when": "view == slnxExplorer",
+          "group": "3_clipboard@1"
+        },
+        {
+          "command": "slnxExplorer.copyItem",
+          "when": "view == slnxExplorer",
+          "group": "3_clipboard@2"
+        },
+        {
+          "command": "slnxExplorer.pasteItem",
+          "when": "view == slnxExplorer && slnxExplorer.hasClipboardItem",
+          "group": "3_clipboard@3"
+        },
+        {
+          "command": "slnxExplorer.rename",
+          "when": "view == slnxExplorer",
+          "group": "4_modify@1"
+        },
+        {
+          "command": "slnxExplorer.delete",
+          "when": "view == slnxExplorer",
+          "group": "4_modify@2"
         }
       ],
       "commandPalette": [
@@ -130,6 +242,50 @@
         },
         {
           "command": "slnxExplorer.cleanProject",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.runNpmScript",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.copyPath",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.copyRelativePath",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.openInTerminal",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.newFile",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.newFolder",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.cutItem",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.copyItem",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.pasteItem",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.rename",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.delete",
           "when": "false"
         }
       ]

@@ -16,5 +16,17 @@
   "Build: {0}": "Сборка: {0}",
   "Clean: {0}": "Очистка: {0}",
   "No project in the solution defines a BuildCommand.": "Ни один проект в solution не определяет BuildCommand.",
-  "No project in the solution defines a CleanCommand.": "Ни один проект в solution не определяет CleanCommand."
+  "No project in the solution defines a CleanCommand.": "Ни один проект в solution не определяет CleanCommand.",
+  "Could not read or parse this package.json.": "Не удалось прочитать или разобрать этот package.json.",
+  "This package.json has no \"scripts\" entries.": "В этом package.json нет раздела \"scripts\".",
+  "Select a script to run": "Выберите скрипт для запуска",
+  "npm: {0}": "npm: {0}",
+  "Terminal: {0}": "Терминал: {0}",
+  "New file name": "Имя нового файла",
+  "New folder name": "Имя новой папки",
+  "New name": "Новое имя",
+  "\"{0}\" already exists.": "\"{0}\" уже существует.",
+  "Move \"{0}\" to Trash?": "Переместить \"{0}\" в корзину?",
+  "Move to Trash": "Переместить в корзину",
+  "Could not paste: {0}": "Не удалось вставить: {0}"
 }
