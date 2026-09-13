@@ -1,0 +1,95 @@
+{
+  "name": "slnx-explorer",
+  "displayName": "SLNX Solution Explorer",
+  "description": "Открывает .slnx solution-файлы Visual Studio и показывает дерево проектов любого типа (.esproj, .csproj, .vcxproj и т.д.), даже если для типа проекта нет отдельного расширения.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "workspaceContains:**/*.slnx"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "slnxExplorerContainer",
+          "title": "SLNX Solution",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "slnxExplorerContainer": [
+        {
+          "id": "slnxExplorer",
+          "name": "Solution"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "slnxExplorer",
+        "contents": "Файл .slnx не найден или не выбран.\n[Открыть .slnx](command:slnxExplorer.openSolution)"
+      }
+    ],
+    "commands": [
+      {
+        "command": "slnxExplorer.refresh",
+        "title": "SLNX: Обновить",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "slnxExplorer.openSolution",
+        "title": "SLNX: Открыть .slnx файл..."
+      },
+      {
+        "command": "slnxExplorer.openFile",
+        "title": "SLNX: Открыть файл"
+      },
+      {
+        "command": "slnxExplorer.revealInOs",
+        "title": "SLNX: Показать в проводнике ОС"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "slnxExplorer.refresh",
+          "when": "view == slnxExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "slnxExplorer.openSolution",
+          "when": "view == slnxExplorer",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "slnxExplorer.revealInOs",
+          "when": "view == slnxExplorer"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0",
+    "@vscode/vsce": "^2.24.0"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.3.6"
+  }
+}
