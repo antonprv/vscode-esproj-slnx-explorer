@@ -55,6 +55,24 @@
       {
         "command": "slnxExplorer.revealInOs",
         "title": "%command.revealInOs.title%"
+      },
+      {
+        "command": "slnxExplorer.buildProject",
+        "title": "%command.buildProject.title%"
+      },
+      {
+        "command": "slnxExplorer.cleanProject",
+        "title": "%command.cleanProject.title%"
+      },
+      {
+        "command": "slnxExplorer.buildSolution",
+        "title": "%command.buildSolution.title%",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "slnxExplorer.cleanSolution",
+        "title": "%command.cleanSolution.title%",
+        "icon": "$(clear-all)"
       }
     ],
     "menus": {
@@ -68,12 +86,51 @@
           "command": "slnxExplorer.openSolution",
           "when": "view == slnxExplorer",
           "group": "navigation"
+        },
+        {
+          "command": "slnxExplorer.buildSolution",
+          "when": "view == slnxExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "slnxExplorer.cleanSolution",
+          "when": "view == slnxExplorer",
+          "group": "navigation"
         }
       ],
       "view/item/context": [
         {
           "command": "slnxExplorer.revealInOs",
-          "when": "view == slnxExplorer"
+          "when": "view == slnxExplorer",
+          "group": "1_reveal"
+        },
+        {
+          "command": "slnxExplorer.buildProject",
+          "when": "view == slnxExplorer && viewItem =~ /\\bbuildable\\b/",
+          "group": "2_build@1"
+        },
+        {
+          "command": "slnxExplorer.cleanProject",
+          "when": "view == slnxExplorer && viewItem =~ /\\bcleanable\\b/",
+          "group": "2_build@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "slnxExplorer.openFile",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.revealInOs",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.buildProject",
+          "when": "false"
+        },
+        {
+          "command": "slnxExplorer.cleanProject",
+          "when": "false"
         }
       ]
     }

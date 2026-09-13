@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
-import { SolutionNode, parseSlnx, KNOWN_PROJECT_EXTENSIONS } from "./solutionModel";
+import { SolutionNode, parseSlnx, flattenProjectNodes, KNOWN_PROJECT_EXTENSIONS } from "./solutionModel";
 
 // #region Tree item kinds
 
@@ -31,6 +31,11 @@ export class SlnxTreeProvider implements vscode.TreeDataProvider<TreeEntry> {
 
     public getSolutionPath(): string | undefined {
         return this.slnxFilePath;
+    }
+
+    /** Все проекты solution (рекурсивно, включая вложенные в папки solution). */
+    public getAllProjects(): SolutionNode[] {
+        return flattenProjectNodes(this.topLevelNodes);
     }
 
     public loadSolution(slnxFilePath: string): void {
@@ -128,7 +133,14 @@ export class SlnxTreeProvider implements vscode.TreeDataProvider<TreeEntry> {
         }
 
         const item = new vscode.TreeItem(node.name, vscode.TreeItemCollapsibleState.Collapsed);
-        item.contextValue = "slnxProject";
+        const contextFlags: string[] = ["slnxProject"];
+        if (node.buildCommand) {
+            contextFlags.push("buildable");
+        }
+        if (node.cleanCommand) {
+            contextFlags.push("cleanable");
+        }
+        item.contextValue = contextFlags.join(" ");
         item.resourceUri = node.absolutePath ? vscode.Uri.file(node.absolutePath) : undefined;
         item.iconPath = new vscode.ThemeIcon("package");
 
@@ -136,7 +148,9 @@ export class SlnxTreeProvider implements vscode.TreeDataProvider<TreeEntry> {
             ? KNOWN_PROJECT_EXTENSIONS[node.extension]
             : undefined;
         item.description = friendlyType ? vscode.l10n.t(friendlyType) : node.extension ?? "";
-        item.tooltip = node.absolutePath;
+        item.tooltip = node.buildOutputFolder
+            ? `${node.absolutePath}\n${vscode.l10n.t("Build output: {0}", node.buildOutputFolder)}`
+            : node.absolutePath;
 
         return item;
     }

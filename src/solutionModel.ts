@@ -13,6 +13,12 @@ export interface SolutionNode {
     absolutePath?: string;
     /** Расширение файла проекта, например ".esproj", ".csproj". Только для kind === "project". */
     extension?: string;
+    /** Команда сборки из <BuildCommand> файла проекта, если она там объявлена. */
+    buildCommand?: string;
+    /** Команда очистки из <CleanCommand> файла проекта, если она там объявлена. */
+    cleanCommand?: string;
+    /** Папка с результатами сборки из <BuildOutputFolder>, если она там объявлена. */
+    buildOutputFolder?: string;
     children: SolutionNode[];
 }
 
@@ -37,6 +43,26 @@ interface RawSolutionRoot {
     };
 }
 
+/** Интересующие нас свойства из <PropertyGroup> файла проекта (.esproj и т.п.). */
+interface RawPropertyGroup {
+    BuildCommand?: unknown;
+    BuildOutputFolder?: unknown;
+    CleanCommand?: unknown;
+}
+
+interface RawProjectFile {
+    Project?: {
+        PropertyGroup?: RawPropertyGroup | RawPropertyGroup[];
+    };
+}
+
+/** Свойства сборки/очистки, прочитанные из файла проекта. */
+export interface ProjectBuildProperties {
+    buildCommand?: string;
+    cleanCommand?: string;
+    buildOutputFolder?: string;
+}
+
 // #endregion
 
 const xmlParser: XMLParser = new XMLParser({
@@ -52,6 +78,47 @@ function toArray<T>(value: T | T[] | undefined): T[] {
     return Array.isArray(value) ? value : [value];
 }
 
+/** Оставляет значение, только если это непустая строка (защита от узлов с атрибутами и т.п.). */
+function readStringProperty(value: unknown): string | undefined {
+    return typeof value === "string" && value.trim().length > 0 ? value.trim() : undefined;
+}
+
+/**
+ * Читает `<BuildCommand>` / `<CleanCommand>` / `<BuildOutputFolder>` из файла
+ * проекта (например .esproj). Свойства не привязаны к конкретному типу
+ * проекта — если они объявлены, расширение их подхватит независимо от
+ * расширения файла. Если свойство объявлено в нескольких `<PropertyGroup>`,
+ * побеждает последнее — как в MSBuild (без учёта `Condition`).
+ * Ошибки чтения/парсинга не считаются фатальными: сборка/очистка просто
+ * будут недоступны для такого проекта.
+ */
+function parseProjectBuildProperties(projectFilePath: string): ProjectBuildProperties {
+    let xmlText: string;
+    try {
+        xmlText = fs.readFileSync(projectFilePath, "utf-8");
+    } catch {
+        return {};
+    }
+
+    let parsed: RawProjectFile;
+    try {
+        parsed = xmlParser.parse(xmlText) as RawProjectFile;
+    } catch {
+        return {};
+    }
+
+    const groups: RawPropertyGroup[] = toArray(parsed.Project?.PropertyGroup);
+    const result: ProjectBuildProperties = {};
+
+    for (const group of groups) {
+        result.buildCommand = readStringProperty(group.BuildCommand) ?? result.buildCommand;
+        result.buildOutputFolder = readStringProperty(group.BuildOutputFolder) ?? result.buildOutputFolder;
+        result.cleanCommand = readStringProperty(group.CleanCommand) ?? result.cleanCommand;
+    }
+
+    return result;
+}
+
 function buildProjectNode(raw: RawProjectElement, solutionDir: string): SolutionNode | undefined {
     const relativePath: string | undefined = raw["@_Path"];
     if (!relativePath) {
@@ -61,6 +128,7 @@ function buildProjectNode(raw: RawProjectElement, solutionDir: string): Solution
     const absolutePath: string = path.resolve(solutionDir, relativePath);
     const extension: string = path.extname(absolutePath);
     const name: string = path.basename(absolutePath);
+    const buildProperties: ProjectBuildProperties = parseProjectBuildProperties(absolutePath);
 
     return {
         kind: "project",
@@ -68,6 +136,7 @@ function buildProjectNode(raw: RawProjectElement, solutionDir: string): Solution
         absolutePath,
         extension,
         children: [],
+        ...buildProperties,
     };
 }
 
@@ -137,3 +206,18 @@ export const KNOWN_PROJECT_EXTENSIONS: Record<string, string> = {
     ".shproj": "Shared project",
     ".njsproj": "Node.js (legacy)",
 };
+
+/** Рекурсивно собирает все узлы-проекты (без папок) из дерева solution. */
+export function flattenProjectNodes(nodes: SolutionNode[]): SolutionNode[] {
+    const result: SolutionNode[] = [];
+
+    for (const node of nodes) {
+        if (node.kind === "project") {
+            result.push(node);
+        } else {
+            result.push(...flattenProjectNodes(node.children));
+        }
+    }
+
+    return result;
+}

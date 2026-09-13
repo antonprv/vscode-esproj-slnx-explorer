@@ -164,6 +164,20 @@ icon to the activity bar. If multiple `.slnx` files are found, or none
 are auto-detected, use the **SLNX: Open .slnx file...** command from
 the view's title bar.
 
+### Build / Clean
+
+If a project file declares `<BuildCommand>` and/or `<CleanCommand>`
+properties (as generated for JavaScript/TypeScript `.esproj` projects,
+e.g. `<BuildCommand>pnpm build</BuildCommand>`), right-clicking that
+project in the tree shows matching **Build** / **Clean** entries. Each
+runs the declared command in an integrated terminal, with the working
+directory set to the project's folder. The terminal is reused between
+runs of the same command on the same project.
+
+The view's title bar also has **Build Solution** / **Clean Solution**
+buttons that run the command for every project in the solution that
+declares one, skipping the rest.
+
 ## Possible future improvements
 
 - File-type-specific icons in the tree (currently uses generic

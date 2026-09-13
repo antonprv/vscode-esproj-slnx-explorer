@@ -6,5 +6,9 @@
   "command.refresh.title": "SLNX: Refresh",
   "command.openSolution.title": "SLNX: Open .slnx File...",
   "command.openFile.title": "SLNX: Open File",
-  "command.revealInOs.title": "SLNX: Reveal in OS Explorer"
+  "command.revealInOs.title": "SLNX: Reveal in OS Explorer",
+  "command.buildProject.title": "Build",
+  "command.cleanProject.title": "Clean",
+  "command.buildSolution.title": "SLNX: Build Solution",
+  "command.cleanSolution.title": "SLNX: Clean Solution"
 }

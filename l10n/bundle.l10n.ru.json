@@ -11,5 +11,10 @@
   "Python": "Python",
   "SQL Server": "SQL Server",
   "Shared project": "Общий проект",
-  "Node.js (legacy)": "Node.js (устаревший)"
+  "Node.js (legacy)": "Node.js (устаревший)",
+  "Build output: {0}": "Папка сборки: {0}",
+  "Build: {0}": "Сборка: {0}",
+  "Clean: {0}": "Очистка: {0}",
+  "No project in the solution defines a BuildCommand.": "Ни один проект в solution не определяет BuildCommand.",
+  "No project in the solution defines a CleanCommand.": "Ни один проект в solution не определяет CleanCommand."
 }
