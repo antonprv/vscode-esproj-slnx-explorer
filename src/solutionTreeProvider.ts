@@ -135,7 +135,7 @@ export class SlnxTreeProvider implements vscode.TreeDataProvider<TreeEntry> {
         const friendlyType: string | undefined = node.extension
             ? KNOWN_PROJECT_EXTENSIONS[node.extension]
             : undefined;
-        item.description = friendlyType ?? node.extension ?? "";
+        item.description = friendlyType ? vscode.l10n.t(friendlyType) : node.extension ?? "";
         item.tooltip = node.absolutePath;
 
         return item;
@@ -158,7 +158,7 @@ export class SlnxTreeProvider implements vscode.TreeDataProvider<TreeEntry> {
         item.iconPath = vscode.ThemeIcon.File;
         item.command = {
             command: "slnxExplorer.openFile",
-            title: "Открыть файл",
+            title: vscode.l10n.t("Open File"),
             arguments: [vscode.Uri.file(absolutePath)],
         };
         return item;

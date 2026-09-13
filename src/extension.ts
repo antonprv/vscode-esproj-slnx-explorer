@@ -13,7 +13,7 @@ async function findSlnxInWorkspace(): Promise<string | undefined> {
 
     const picked = await vscode.window.showQuickPick(
         found.map((uri: vscode.Uri) => ({ label: path.basename(uri.fsPath), description: uri.fsPath, uri })),
-        { placeHolder: "Выберите .slnx файл" }
+        { placeHolder: vscode.l10n.t("Select a .slnx file") }
     );
     return picked?.uri.fsPath;
 }
@@ -21,8 +21,8 @@ async function findSlnxInWorkspace(): Promise<string | undefined> {
 async function promptForSlnxFile(): Promise<string | undefined> {
     const picked = await vscode.window.showOpenDialog({
         canSelectMany: false,
-        filters: { "Solution files": ["slnx"] },
-        openLabel: "Открыть solution",
+        filters: { [vscode.l10n.t("Solution files")]: ["slnx"] },
+        openLabel: vscode.l10n.t("Open Solution"),
     });
     return picked?.[0]?.fsPath;
 }
@@ -43,7 +43,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
         const chosenPath: string | undefined = await promptForSlnxFile();
         if (chosenPath) {
             treeProvider.loadSolution(chosenPath);
-            treeView.title = `Solution: ${path.basename(chosenPath)}`;
+            treeView.title = vscode.l10n.t("Solution: {0}", path.basename(chosenPath));
         }
     });
 
@@ -68,7 +68,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     const autoDetected: string | undefined = await findSlnxInWorkspace();
     if (autoDetected) {
         treeProvider.loadSolution(autoDetected);
-        treeView.title = `Solution: ${path.basename(autoDetected)}`;
+        treeView.title = vscode.l10n.t("Solution: {0}", path.basename(autoDetected));
     }
 }
 

@@ -1,0 +1,15 @@
+{
+  "Select a .slnx file": "Выберите .slnx файл",
+  "Open Solution": "Открыть solution",
+  "Solution files": "Файлы Solution",
+  "Solution: {0}": "Solution: {0}",
+  "Open File": "Открыть файл",
+  "JavaScript/TypeScript (esproj)": "JavaScript/TypeScript (esproj)",
+  "C# / .NET": "C# / .NET",
+  "C++": "C++",
+  "VB.NET": "VB.NET",
+  "Python": "Python",
+  "SQL Server": "SQL Server",
+  "Shared project": "Общий проект",
+  "Node.js (legacy)": "Node.js (устаревший)"
+}

@@ -1,0 +1,10 @@
+{
+  "extension.description": "Opens Visual Studio .slnx solution files and shows a tree of the projects inside — any project type (.esproj, .csproj, .vcxproj, etc.), even if there is no dedicated extension for that project type.",
+  "view.container.title": "SLNX Solution",
+  "view.solution.name": "Solution",
+  "viewsWelcome.noSolution": "No .slnx file found or selected.\n[Open .slnx](command:slnxExplorer.openSolution)",
+  "command.refresh.title": "SLNX: Refresh",
+  "command.openSolution.title": "SLNX: Open .slnx File...",
+  "command.openFile.title": "SLNX: Open File",
+  "command.revealInOs.title": "SLNX: Reveal in OS Explorer"
+}

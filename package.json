@@ -1,10 +1,11 @@
 {
   "name": "slnx-explorer",
   "displayName": "SLNX Solution Explorer",
-  "description": "Открывает .slnx solution-файлы Visual Studio и показывает дерево проектов любого типа (.esproj, .csproj, .vcxproj и т.д.), даже если для типа проекта нет отдельного расширения.",
+  "description": "%extension.description%",
   "version": "0.1.0",
   "publisher": "local",
   "private": true,
+  "l10n": "./l10n",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -18,7 +19,7 @@
       "activitybar": [
         {
           "id": "slnxExplorerContainer",
-          "title": "SLNX Solution",
+          "title": "%view.container.title%",
           "icon": "resources/icon.svg"
         }
       ]
@@ -27,33 +28,33 @@
       "slnxExplorerContainer": [
         {
           "id": "slnxExplorer",
-          "name": "Solution"
+          "name": "%view.solution.name%"
         }
       ]
     },
     "viewsWelcome": [
       {
         "view": "slnxExplorer",
-        "contents": "Файл .slnx не найден или не выбран.\n[Открыть .slnx](command:slnxExplorer.openSolution)"
+        "contents": "%viewsWelcome.noSolution%"
       }
     ],
     "commands": [
       {
         "command": "slnxExplorer.refresh",
-        "title": "SLNX: Обновить",
+        "title": "%command.refresh.title%",
         "icon": "$(refresh)"
       },
       {
         "command": "slnxExplorer.openSolution",
-        "title": "SLNX: Открыть .slnx файл..."
+        "title": "%command.openSolution.title%"
       },
       {
         "command": "slnxExplorer.openFile",
-        "title": "SLNX: Открыть файл"
+        "title": "%command.openFile.title%"
       },
       {
         "command": "slnxExplorer.revealInOs",
-        "title": "SLNX: Показать в проводнике ОС"
+        "title": "%command.revealInOs.title%"
       }
     ],
     "menus": {
